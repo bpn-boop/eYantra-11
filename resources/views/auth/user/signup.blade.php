@@ -1,6 +1,6 @@
 <?php
   use App\Models\User;
-  if (!User::where('role', 'admin')->exists()){
+  if (!auth()->check()){
 ?>
 
 <!DOCTYPE html>
@@ -18,14 +18,14 @@
 <body>
     <div id="auth">
         <div class="row h-100">
-            <div class="col-lg-5 col-12">
+            <div class="d-flex justify-content-center">
                 <div id="auth-left">
                     <div class="auth-logo d-flex justify-content-center">
                       <a href="/"><h1><u>eYantra</u></h1></a>
                     </div>
-                    <h2 class="text-center">Register.</h2>
+                    <h2 class="text-center">Signup.</h2>
                     
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('sotreSignup') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group position-relative has-icon-left mb-4">
@@ -78,7 +78,6 @@
                         </div>
         
                         <hr/>
-        
                        
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
                     </form>
@@ -88,11 +87,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-7 d-none d-lg-block">
+            <!-- <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right-register">
         
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </body>

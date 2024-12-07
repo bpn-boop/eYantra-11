@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,11 +34,11 @@ Route::controller(ClientController::class)->group(function(){
     Route::post('/add-to-cart', 'addToCart')->name('clientAddToCart');
     Route::post('/update-cart', 'updateCart')->name('clientUpdateCart');
     Route::post('/delete-cart', 'deleteCart')->name('clientDeleteCart');
-    Route::get('/checkout', 'checkout')->name('clientCheckout');
-    Route::post('/checkout-save', 'checkoutSave')->name('clientCheckoutSave');
-    Route::get('/success/{order_code}', 'successOrder')->name('clientOrderCode');
-    Route::get('/check-order', 'checkOrder')->name('clientCheckOrder');
-    Route::post('/check-order-status', 'checkOrderStatus')->name('clientCheckOrderStatus');
+    // Route::get('/checkout', 'checkout')->name('clientCheckout');
+    // Route::post('/checkout-save', 'checkoutSave')->name('clientCheckoutSave');
+    // Route::get('/success/{order_code}', 'successOrder')->name('clientOrderCode');
+    // Route::get('/check-order', 'checkOrder')->name('clientCheckOrder');
+    // Route::post('/check-order-status', 'checkOrderStatus')->name('clientCheckOrderStatus');
     Route::get('/about', 'about')->name('clientAbout');
 });
 
@@ -51,6 +52,7 @@ Route::controller(CartController::class)->group(function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::middleware(['auth'])->group(function () {
     // Shop
     Route::controller(ShopController::class)->group(function() {
@@ -58,6 +60,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/shop/detail', 'detail')->name('shopDetail');
         Route::post('/shop/update', 'update')->name('shopUpdate');
         Route::post('/shop/update-password', 'updatePassword')->name('shopUpdatePassword');
+    });
+
+    Route::controller(ClientController::class)->group(function(){
+        Route::get('/checkout', 'checkout')->name('clientCheckout');
+        Route::post('/checkout-save', 'checkoutSave')->name('clientCheckoutSave');
+        Route::get('/success/{order_code}', 'successOrder')->name('clientOrderCode');
+        Route::get('/check-order', 'checkOrder')->name('clientCheckOrder');
+        Route::post('/check-order-status', 'checkOrderStatus')->name('clientCheckOrderStatus');
     });
 
     // Category
@@ -92,3 +102,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/order/delete/{order_code}', 'delete')->name('orderDelete');
     });
 });
+
+
+Route::get('/signup', [UserController::class, 'signup'])->name('signup');
+Route::post('/signup', [UserController::class, 'sotreSignup'])->name('sotreSignup');
