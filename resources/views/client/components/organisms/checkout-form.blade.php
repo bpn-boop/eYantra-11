@@ -33,6 +33,7 @@
         </div>
         <button type="submit" class="btn btn-primary float-end">Order</button>
     </form>
+    <!-- <button type="button" class="btn btn-primary float-end">Order</button> -->
 </div>
 @push('js')
     <script>

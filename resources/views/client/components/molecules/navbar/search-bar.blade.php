@@ -17,3 +17,54 @@
     <i class="bi bi-cart2 mt-2"></i>
   </div>
 </a>
+
+@if (auth()->check() && auth()->user()->role == 'user')
+<div class="dropdown">
+  <button style="margin-left: 2.5rem; width: 50px; height: 50px;"  class="btn btn-dark rounded-circle shadow p-0 overflow-hidden" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+    <h3 class="text-white mt-2">{{auth()->user()->name[0]}}</h3>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownMenuButton" style="width: 290px;">
+    <li class="p-3 border-bottom">
+      <div class="d-flex align-items-center">
+        <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center" style="width: 50px; height: 50px; font-size: 18px;">
+          {{auth()->user()->name[0]}}
+        </div>
+        <div class="ms-3">
+          <h6 class="mb-0">{{auth()->user()->name}}</h6>
+          <p class="mb-0 text-muted" style="font-size: 0.9rem;">{{auth()->user()->email}}</p>
+        </div>
+      </div>
+    </li>
+
+    <li>
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalUpdatePassword">Edit profile</a>
+    </li>
+    <li>
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modalUpdatePassword">Change password</a>
+    </li>
+    <li>
+        <a href="{{ route('logout') }}"
+            class="dropdown-item text-danger"
+            onclick="event.preventDefault();
+                          document.getElementById('logout-form').submit();">Log Out</a>
+    </li>
+      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+      </form>
+  </ul>
+</div>
+@elseif (auth()->check() && auth()->user()->role == 'admin')
+<button onclick="location.href='{{ '/home' }}'" style="margin-left: 2.5rem" class="btn btn-dark rounded-pill shadow px-4 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  Dashboard
+</button>
+@elseif (!auth()->check())
+<button onclick="location.href='{{ '/login' }}'" style="margin-left: 2.5rem" class="btn btn-dark rounded-pill shadow px-4 py-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  Login
+</button>
+@endif
+
+
+
+
+
