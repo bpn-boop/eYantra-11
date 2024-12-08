@@ -57,6 +57,21 @@
                             </div>
                             
                         </div>
+
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone" required autofocus>
+        
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+        
+                            <div class="form-control-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            
+                        </div>
         
         
                         <div class="form-group position-relative has-icon-left mb-4">

@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="{{asset('assets/css/pages/auth.css')}}">
 </head>
 <body>
+    @if (session('error'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div id="auth">
         <div class="row h-100">
             <div class="d-flex justify-content-center">
@@ -56,6 +62,20 @@
                                 <i class="bi bi-envelope"></i>
                             </div>
                             
+                        </div>
+
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" placeholder="Phone" required autofocus>
+        
+                            @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+        
+                            <div class="form-control-icon">
+                                <i class="bi bi-phone"></i>
+                            </div>
                         </div>
         
         

@@ -17,14 +17,16 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('shop_id');
             $table->string('order_code');
-            $table->string('name');
-            $table->bigInteger('phone');
+            // $table->string('name');
+            // $table->bigInteger('phone');
             $table->string('address');
             $table->text('note')->nullable();
             $table->bigInteger('total');
             $table->integer('status');
 
             $table->foreign('shop_id')->references('id')->on('shops')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });

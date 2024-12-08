@@ -115,8 +115,6 @@ class ClientController extends Controller
 
     public function checkoutSave(Request $request){
         $validator = Validator($request->all(), [
-            'name' => 'required',
-            'phone' => 'required',
             'address' => 'required'
         ]);
 
@@ -138,18 +136,20 @@ class ClientController extends Controller
                     ];
                 }
 
-                Order::create([
+                $order = Order::create([
                     'shop_id' => Shop::first()->id,
                     'order_code' => $order_code,
-                    'name' => $request->name,
-                    'phone' => $request->phone,
                     'address' => $request->address,
                     'note' => $request->note,
                     'total' => $total,
-                    'status' => 0
+                    'status' => 0,
+                    'user_id' => auth()->user()->id
                 ]);
 
-                OrderDetail::insert($data);
+                foreach($data as $id => $detail){
+                    $detail['order_id'] = $order->id;
+                    OrderDetail::insert($detail);
+                }
 
                 session()->forget('cart');
 

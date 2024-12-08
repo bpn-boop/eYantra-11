@@ -1,7 +1,7 @@
 <div class="container py-4">
     <form action="{{ route('clientCheckoutSave') }}" method="post">
         @csrf
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" class="form-control  @error('name') is-invalid @enderror bg-transparent" placeholder="Mike" value="{{ old('name') }}" required>
             @error('name') 
@@ -14,7 +14,7 @@
             @error('phone') 
               <small class="text-danger">{{ $message }}</small>
             @enderror
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="address">Address</label>
             <input type="text" name="address" id="address" class="form-control  @error('address') is-invalid @enderror bg-transparent" placeholder="3425 Stone Street" value="{{ old('address') }}" required>

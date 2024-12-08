@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('price');
             $table->string('quantity');
+            $table->foreignId('order_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
