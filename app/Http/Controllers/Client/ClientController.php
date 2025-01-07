@@ -211,4 +211,22 @@ class ClientController extends Controller
 
         return view('client.about', $data);
     }
+
+    public function getMyOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)
+        ->with('orderDetail')
+        ->orderBy('id', 'DESC')
+        ->get();
+// dd($orders);
+        // $data = [
+        //     'shop' => Shop::first(),
+        //     'orders' => $orders,
+        //     'title' => 'My Orders'
+        // ];
+        $shop = Shop::first();
+
+        return view('client.my-orders', compact('orders', 'shop'));
+
+        // return view('client.my-orders', $orders, compact('shop'));
+    }
 }

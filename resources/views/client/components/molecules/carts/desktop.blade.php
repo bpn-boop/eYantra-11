@@ -58,7 +58,8 @@
             <td class="hidden-xs">
                 <strong>Total : $<span class="cart-total">{{ $total }}</span></strong>
             </td>
-            @if(!request()->routeIs('clientCheckout'))
+            
+            @if(!request()->routeIs('clientCheckout') && count((array) session('cart')) > 0)
                 <td>
                     <a href="/checkout" class="btn btn-primary">CheckOut</a>
                 </td>

@@ -36,7 +36,7 @@
 <div class="card mt-3 mb-4">
     <div class="card-body">
         <h5 class="font-secondary"><strong>Total : $<span class="cart-total">{{ $total}}</span></strong></h5>
-        @if(!request()->routeIs('clientCheckout'))
+        @if(!request()->routeIs('clientCheckout') && count((array) session('cart')) > 0)
             <div class="d-flex justify-content-between mt-3 font-secondary">
                 <a href="{{ url('/') }}" class="btn btn-sm btn-outline-secondary">
                     <span class="d-flex align-items-center gap-1">
