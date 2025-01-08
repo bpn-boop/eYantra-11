@@ -105,7 +105,7 @@ class ShopController extends Controller
 
     public function updatePassword(Request $request){
         $validator = Validator($request->all(), [
-            'password' => 'required|string|confirmed',
+            'password' => ['required', 'string', 'confirmed', Password::defaults()],
         ]);
 
         if($validator->fails()){
