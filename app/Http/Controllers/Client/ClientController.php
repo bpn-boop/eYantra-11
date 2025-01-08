@@ -11,6 +11,8 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use Validator;
 use Str;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderPlacedMail;
 
 class ClientController extends Controller
 {
@@ -146,10 +148,16 @@ class ClientController extends Controller
                     'user_id' => auth()->user()->id
                 ]);
 
+                $orders_placed = [];
+
                 foreach($data as $id => $detail){
                     $detail['order_id'] = $order->id;
-                    OrderDetail::insert($detail);
+                    // $orders_placed[] = OrderDetail::insert($detail);
+                    $orders_placed[] = OrderDetail::create($detail);
                 }
+
+                //send email here
+                Mail::to(auth()->user()->email)->send(new OrderPlacedMail($orders_placed));
 
                 session()->forget('cart');
 

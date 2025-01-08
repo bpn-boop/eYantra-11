@@ -5,7 +5,28 @@
         <h3 class="font-primary"><u>Warranty</u></h3>
       </div>
       <div class="col-lg-8 col-md-8 col-12">
-        <p class="font-secondary">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias pariatur voluptates, a dicta dolore repudiandae eos provident hic error? Non accusamus consequatur odio iste saepe, natus eligendi totam incidunt voluptate?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt atque at repudiandae iusto! Laboriosam iusto animi ipsum, corrupti, exercitationem fugiat consectetur perferendis rem enim ad non est eos! Labore, qui?</p>
+        <div class="warranty-section">
+          <div class="warranty font-secondary">
+            <h3>Warranty</h3>
+            <ul>
+              <li>All products sold on <strong>Eyantra</strong> come with a standard manufacturer’s warranty, unless
+                stated otherwise.</li>
+              <li>The warranty covers only manufacturing defects and does not apply to damage caused by improper use,
+                installation, or regular wear and tear.</li>
+              <li>Warranty claims must be made within the specified warranty period mentioned in the product
+                description.</li>
+              <li>To initiate a warranty claim, customers must provide proof of purchase (e.g., receipt or invoice)
+                along with details of the issue.</li>
+              <li>Warranty services may require the product to be inspected by our team or the manufacturer, and
+                processing times may vary.</li>
+            </ul>
+          </div>
+          <div class="additional-info">
+            <p>If you have any questions or need help with warranty claims, please contact our customer support team for
+              assistance.</p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
