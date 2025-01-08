@@ -10,16 +10,18 @@ use Str;
 use Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+
 class ShopController extends Controller
 {
     public function create(Request $request){
 
         $validator = Validator($request->all(), [
-            'name_shop' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'path' => 'required',
-            'desc' => 'required',
+            'name_shop' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'regex:/^(98|97)\d{8}$/', 'unique:shops'],
+            'address' => ['required', 'string', 'max:255'],
+            'path' => ['required', 'image:png,jpg,jpeg', 'max:2048'],
+            'desc' => ['required', 'string', 'max:255'],
         ]);
 
         if($validator->fails()){

@@ -16,9 +16,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @foreach ($orders as $order)
-            <th scope="row">1</th>
+      @foreach ($orders as $order)
+          <tr>
+            <th scope="row">{{$loop->iteration}}</th>
             <td>{{$order->orderDetail->title}}</td>
             <td>{{$order->total}}</td>
             <td>{{$order->orderDetail->quantity}}</td>
@@ -39,8 +39,8 @@
             </td>
             <td>{{$order->address}}</td>
             <td>{{$order->note}}</td>
-            @endforeach
-        </tr>
+          </tr>
+        @endforeach
     </tbody>
     </table>
   </div>

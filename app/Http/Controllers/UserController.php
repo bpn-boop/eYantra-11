@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -16,13 +17,12 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validate([
-                'name' => ['required', 'string', 'max:255'],
+                'name' => ['required', 'string', 'min:2', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'phone' => ['required', 'string', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'confirmed'],
+                'phone' => ['required', 'string', 'regex:/^(98|97)\d{8}$/', 'unique:users'],
+                'password' => ['required', 'string', 'confirmed', Password::defaults()],
             ]);
             
-    
             User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -31,7 +31,7 @@ class UserController extends Controller
                 'role' => 'user'
             ]);
     
-            return redirect('/')->with('success', 'User created successfully');
+            return redirect('/')->with('success', 'User registered successfully');
         } catch (\Exception $e) {
             // dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());

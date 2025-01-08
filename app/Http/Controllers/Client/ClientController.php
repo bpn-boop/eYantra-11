@@ -153,7 +153,8 @@ class ClientController extends Controller
 
                 session()->forget('cart');
 
-                return redirect()->route('clientOrderCode', $order_code);
+                return redirect()->route('getMyOrders');
+                // return redirect()->route('clientOrderCode', $order_code);
             }
 
         }
