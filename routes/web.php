@@ -107,3 +107,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('/signup', [UserController::class, 'signup'])->name('signup');
 Route::post('/signup', [UserController::class, 'sotreSignup'])->name('sotreSignup');
+
+Route::get('/verify-email', function() {
+    return view('client.verify-email');
+})->name('verify-email')->middleware('guest');
+
+Route::get('/verify-email/{token}/{user}',[UserController::class, 'emailVerification'])->name('email-verification');

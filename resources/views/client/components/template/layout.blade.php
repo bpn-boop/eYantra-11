@@ -53,6 +53,19 @@
     </script>
 @endif
 
+@if(session('failed'))
+        <script>
+            Toastify({
+                text: "{{session('failed')}}",
+                duration: 3000,
+                close:true,
+                gravity:"top",
+                position: "right",
+                backgroundColor: "#f3616d",
+            }).showToast();
+        </script>
+@endif
+
 @stack('js')
 </body>
 </html>
