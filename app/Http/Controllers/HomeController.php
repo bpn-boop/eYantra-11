@@ -37,8 +37,10 @@ class HomeController extends Controller
                 'category' => Category::all()->count(),
                 'sales' => Order::where('status', 5)->sum('total'),
                 'order' => Order::where('status', 5)->count(),
-                'newOrder' => Order::all()->sortByDesc('id')->take(5)
+                'newOrder' => Order::with('user')->get()->sortByDesc('id')->take(5)
             ];
+            // Order::with('user')->get()->sortByDesc('id')
+            // Order::all()->sortByDesc('id')->take(5)
 
             return view('admin.index', $data);
         }
