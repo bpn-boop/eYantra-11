@@ -41,12 +41,12 @@
             <tr>
               <td><b>Name</b></td>
               <td>&nbsp; : &nbsp;</td>
-              <td>{{ $order->name }}</td>
+              <td>{{ $order->user->name }}</td>
             </tr>
             <tr>
               <td><b>Phone</b></td>
               <td>&nbsp; : &nbsp;</td>
-              <td>{{ $order->phone }}</td>
+              <td>{{ $order->user->phone }}</td>
             </tr>
             <tr>
               <td><b>Address</b></td>
