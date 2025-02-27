@@ -11,8 +11,10 @@ use App\Models\Product;
 class OrderController extends Controller
 {
     public function index(){
+        // Order::all()->sortByDesc('id')
+        // dd(Order::with('user')->get()->sortByDesc('id'));
         $data = [
-            'orders' => Order::all()->sortByDesc('id'),
+            'orders' => Order::with('user')->get()->sortByDesc('id'),
             'title' => 'Orders'
         ];
 
@@ -21,7 +23,7 @@ class OrderController extends Controller
 
     public function detail($order_code){
         $data = [
-            'order' => Order::where('order_code', $order_code)->first(),
+            'order' => Order::where('order_code', $order_code)->with('user')->first(),
             'orderDetail' => OrderDetail::where('order_code', $order_code)->get(),
             'title' => 'Order Detail - '.$order_code
         ];

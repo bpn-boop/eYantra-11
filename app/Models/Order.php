@@ -17,5 +17,9 @@ class Order extends Model
         return $this->hasOne(OrderDetail::class);
     }
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
     use HasFactory;
 }
