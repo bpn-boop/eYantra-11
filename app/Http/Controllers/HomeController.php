@@ -39,8 +39,6 @@ class HomeController extends Controller
                 'order' => Order::where('status', 5)->count(),
                 'newOrder' => Order::with('user')->get()->sortByDesc('id')->take(5)
             ];
-            // Order::with('user')->get()->sortByDesc('id')
-            // Order::all()->sortByDesc('id')->take(5)
 
             return view('admin.index', $data);
         }
