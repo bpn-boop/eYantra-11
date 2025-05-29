@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EsewaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ShopController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -64,7 +65,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(ClientController::class)->group(function(){
         Route::get('/checkout', 'checkout')->name('clientCheckout');
-        Route::post('/checkout-save', 'checkoutSave')->name('clientCheckoutSave');
+        Route::post('/checkout-save', 'checkoutSave')->name('clientCheckoutSave'); // cash on delivery
+        Route::post('/initiate-esewa-payment', 'initiateEsewaPayment')->name('initiateEsewaPayment'); // online payment
         Route::get('/success/{order_code}', 'successOrder')->name('clientOrderCode');
         Route::get('/check-order', 'checkOrder')->name('clientCheckOrder');
         Route::get('/orders', 'getMyOrders')->name('getMyOrders');
@@ -113,3 +115,7 @@ Route::get('/verify-email', function() {
 })->name('verify-email')->middleware('guest');
 
 Route::get('/verify-email/{token}/{user}',[UserController::class, 'emailVerification'])->name('email-verification');
+
+// esewa payment
+Route::get('/esewa/success', [EsewaController::class, 'paymentSuccessful'])->name('esewa.success');
+Route::get('/esewa/fail', [EsewaController::class, 'paymentFailed'])->name('esewa.fail');

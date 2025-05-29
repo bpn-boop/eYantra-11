@@ -23,7 +23,7 @@
             <td>{{$order->total}}</td>
             <td>{{$order->orderDetail->quantity}}</td>
             <td>
-            @if($order->status == 0)
+                  @if($order->status == 0)
                     <span class="badge bg-warning" >Unprocessed</span>
                   @elseif($order->status == 1)
                     <span class="badge bg-info">Confirmed</span>
@@ -35,6 +35,8 @@
                     <span class="badge bg-secondary">Shipping</span>
                   @elseif($order->status == 5)
                     <span class="badge bg-success">Completed</span>
+                  @elseif($order->status == 6)
+                    <span class="badge bg-success">Failed</span>
                   @endif
             </td>
             <td>{{$order->address}}</td>

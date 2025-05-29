@@ -22,6 +22,13 @@
     </style>
 @endpush
 <div class="container py-2">
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="d-lg-block d-sm-block d-none">
         <x-molecules.carts.desktop />
     </div>

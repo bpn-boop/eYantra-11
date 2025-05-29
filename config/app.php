@@ -58,6 +58,10 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'esewa_payment_success_redirection' => env('ESEWA_PAYMENT_SUCCESS_REDIRECTION'),
+    'esewa_payment_fail_redirection' => env('ESEWA_PAYMENT_FAIL_REDIRECTION'),
+    'esewa_merchant_secret_key' => env('ESEWA_MERCHANT_SECRET_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
