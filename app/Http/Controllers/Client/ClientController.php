@@ -232,7 +232,7 @@ class ClientController extends Controller
         ->with('orderDetail')
         ->orderBy('id', 'DESC')
         ->get();
-// dd($orders);
+
         // $data = [
         //     'shop' => Shop::first(),
         //     'orders' => $orders,
