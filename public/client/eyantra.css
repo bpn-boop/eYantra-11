@@ -1,0 +1,973 @@
+/* ============================================================
+   EYANTRA — Master Design System
+   Industrial-utilitarian meets clean modern retail
+   ============================================================ */
+
+/* ── Google Fonts are loaded in layout.blade.php ── */
+
+/* ─────────────────────────────────────────────────────────
+   1. CSS CUSTOM PROPERTIES (Design Tokens)
+───────────────────────────────────────────────────────── */
+:root {
+  /* Colors */
+  --ey-bg:           #1A1A1A;
+  --ey-surface:      #242424;
+  --ey-surface-2:    #2E2E2E;
+  --ey-surface-3:    #383838;
+  --ey-border:       #333333;
+  --ey-border-light: #444444;
+
+  --ey-accent:       #FF5722;
+  --ey-accent-hover: #E64A19;
+  --ey-accent-muted: rgba(255, 87, 34, 0.15);
+
+  --ey-text:         #F5F5F5;
+  --ey-text-muted:   #9E9E9E;
+  --ey-text-dim:     #616161;
+
+  --ey-success:      #4CAF50;
+  --ey-warning:      #FFC107;
+  --ey-danger:       #F44336;
+  --ey-info:         #29B6F6;
+
+  /* Typography */
+  --font-heading:    'Barlow Condensed', sans-serif;
+  --font-body:       'DM Sans', sans-serif;
+
+  /* Shape */
+  --radius-sm:       4px;
+  --radius:          6px;
+  --radius-lg:       10px;
+  --radius-pill:     999px;
+
+  /* Shadow */
+  --shadow-sm:       0 2px 8px rgba(0,0,0,0.35);
+  --shadow:          0 4px 24px rgba(0,0,0,0.4);
+  --shadow-lg:       0 8px 40px rgba(0,0,0,0.5);
+
+  /* Transitions */
+  --transition:      0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─────────────────────────────────────────────────────────
+   2. RESET & BASE
+───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--ey-bg);
+  color: var(--ey-text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::-webkit-scrollbar { width: 6px; }
+body::-webkit-scrollbar-track { background: var(--ey-bg); }
+body::-webkit-scrollbar-thumb { background: var(--ey-border-light); border-radius: 3px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ey-text);
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+}
+
+a { color: var(--ey-accent); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--ey-accent-hover); }
+
+img { max-width: 100%; display: block; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--ey-border);
+  margin: 1.5rem 0;
+}
+
+::selection { background: var(--ey-accent); color: #fff; }
+
+/* ─────────────────────────────────────────────────────────
+   3. TYPOGRAPHY UTILITIES
+───────────────────────────────────────────────────────── */
+.ey-heading-xl {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+}
+.ey-heading-lg {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.ey-heading-md {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.ey-section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ey-accent);
+}
+.ey-text-muted { color: var(--ey-text-muted); }
+.ey-text-accent { color: var(--ey-accent); }
+
+/* Section header with orange rule */
+.ey-section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.ey-section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ey-border);
+}
+.ey-section-header h2 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  margin: 0;
+}
+.ey-section-header h2 span { color: var(--ey-accent); }
+
+/* ─────────────────────────────────────────────────────────
+   4. BUTTONS
+───────────────────────────────────────────────────────── */
+.ey-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+}
+.ey-btn:focus-visible { outline: 2px solid var(--ey-accent); outline-offset: 3px; }
+
+/* Primary — orange fill */
+.ey-btn-primary {
+  background: var(--ey-accent);
+  color: #fff;
+  border-color: var(--ey-accent);
+}
+.ey-btn-primary:hover {
+  background: var(--ey-accent-hover);
+  border-color: var(--ey-accent-hover);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(255,87,34,0.35);
+}
+
+/* Secondary — outlined */
+.ey-btn-outline {
+  background: transparent;
+  color: var(--ey-text);
+  border-color: var(--ey-border-light);
+}
+.ey-btn-outline:hover {
+  border-color: var(--ey-accent);
+  color: var(--ey-accent);
+  background: var(--ey-accent-muted);
+}
+
+/* Ghost — text only */
+.ey-btn-ghost {
+  background: transparent;
+  color: var(--ey-text-muted);
+  border-color: transparent;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.ey-btn-ghost:hover { color: var(--ey-accent); }
+
+/* Sizes */
+.ey-btn-sm { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+.ey-btn-lg { padding: 0.85rem 2rem; font-size: 1rem; }
+.ey-btn-full { width: 100%; }
+
+/* Override Bootstrap btn */
+.btn-primary {
+  background: var(--ey-accent) !important;
+  border-color: var(--ey-accent) !important;
+  color: #fff !important;
+  border-radius: var(--radius-sm) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  transition: all var(--transition) !important;
+}
+.btn-primary:hover {
+  background: var(--ey-accent-hover) !important;
+  border-color: var(--ey-accent-hover) !important;
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────────────────
+   5. BADGES & STATUS
+───────────────────────────────────────────────────────── */
+.ey-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ey-badge-success  { background: rgba(76,175,80,0.15);  color: #4CAF50; border: 1px solid rgba(76,175,80,0.3); }
+.ey-badge-warning  { background: rgba(255,193,7,0.15);  color: #FFC107; border: 1px solid rgba(255,193,7,0.3); }
+.ey-badge-danger   { background: rgba(244,67,54,0.15);  color: #F44336; border: 1px solid rgba(244,67,54,0.3); }
+.ey-badge-info     { background: rgba(41,182,246,0.15); color: #29B6F6; border: 1px solid rgba(41,182,246,0.3); }
+.ey-badge-muted    { background: var(--ey-surface-2);   color: var(--ey-text-muted); border: 1px solid var(--ey-border); }
+.ey-badge-accent   { background: var(--ey-accent-muted); color: var(--ey-accent); border: 1px solid rgba(255,87,34,0.3); }
+
+/* Stock badges */
+.stock-in     { background: rgba(76,175,80,0.15);  color: #4CAF50; }
+.stock-low    { background: rgba(255,193,7,0.15);  color: #FFC107; }
+.stock-out    { background: rgba(244,67,54,0.15);  color: #F44336; }
+
+/* ─────────────────────────────────────────────────────────
+   6. CARDS
+───────────────────────────────────────────────────────── */
+.ey-card {
+  background: var(--ey-surface);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+.ey-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+  border-color: var(--ey-border-light);
+}
+
+/* ─────────────────────────────────────────────────────────
+   7. FORM INPUTS
+───────────────────────────────────────────────────────── */
+.ey-input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--ey-surface-2);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-sm);
+  color: var(--ey-text);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  -webkit-appearance: none;
+}
+.ey-input::placeholder { color: var(--ey-text-dim); }
+.ey-input:focus {
+  border-color: var(--ey-accent);
+  box-shadow: 0 0 0 3px rgba(255,87,34,0.15);
+}
+
+/* Search bar */
+.ey-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.ey-search-input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.8rem;
+  background: var(--ey-surface-2);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-sm);
+  color: var(--ey-text);
+  font-family: var(--font-body);
+  font-size: 0.925rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.ey-search-input::placeholder { color: var(--ey-text-dim); }
+.ey-search-input:focus {
+  border-color: var(--ey-accent);
+  box-shadow: 0 0 0 3px rgba(255,87,34,0.15);
+}
+.ey-search-icon {
+  position: absolute;
+  left: 0.85rem;
+  color: var(--ey-text-dim);
+  pointer-events: none;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+.ey-search-btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--ey-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.ey-search-btn:hover { background: var(--ey-accent-hover); }
+
+/* Select */
+.ey-select {
+  padding: 0.55rem 2.2rem 0.55rem 0.85rem;
+  background: var(--ey-surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239E9E9E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-sm);
+  color: var(--ey-text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color var(--transition);
+}
+.ey-select:focus { border-color: var(--ey-accent); }
+.ey-select option { background: var(--ey-surface-2); }
+
+/* ─────────────────────────────────────────────────────────
+   8. BREADCRUMB
+───────────────────────────────────────────────────────── */
+.ey-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--ey-text-muted);
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.ey-breadcrumb a {
+  color: var(--ey-text-muted);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.ey-breadcrumb a:hover { color: var(--ey-accent); }
+.ey-breadcrumb .sep { color: var(--ey-text-dim); }
+.ey-breadcrumb .current { color: var(--ey-text); }
+
+/* ─────────────────────────────────────────────────────────
+   9. FILTER CHIPS (active filters)
+───────────────────────────────────────────────────────── */
+.ey-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.ey-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--ey-accent-muted);
+  border: 1px solid rgba(255,87,34,0.3);
+  border-radius: var(--radius-sm);
+  color: var(--ey-accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.ey-chip .chip-remove {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  transition: opacity var(--transition);
+}
+.ey-chip:hover .chip-remove { opacity: 1; }
+.ey-chip:hover { background: rgba(255,87,34,0.25); }
+
+/* ─────────────────────────────────────────────────────────
+   10. TABS
+───────────────────────────────────────────────────────── */
+.ey-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--ey-border);
+  gap: 0;
+  overflow-x: auto;
+}
+.ey-tab {
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ey-text-muted);
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition);
+  margin-bottom: -1px;
+}
+.ey-tab:hover { color: var(--ey-text); }
+.ey-tab.active {
+  color: var(--ey-accent);
+  border-bottom-color: var(--ey-accent);
+}
+
+/* ─────────────────────────────────────────────────────────
+   11. QUANTITY STEPPER
+───────────────────────────────────────────────────────── */
+.ey-qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  width: fit-content;
+}
+.ey-qty-btn {
+  width: 38px;
+  height: 40px;
+  background: var(--ey-surface-2);
+  border: none;
+  color: var(--ey-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ey-qty-btn:hover { background: var(--ey-accent); color: #fff; }
+.ey-qty-num {
+  width: 52px;
+  height: 40px;
+  background: var(--ey-surface);
+  border: none;
+  border-left: 1px solid var(--ey-border);
+  border-right: 1px solid var(--ey-border);
+  color: var(--ey-text);
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.925rem;
+  font-weight: 600;
+  outline: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   12. PAGINATION
+───────────────────────────────────────────────────────── */
+.pagination .page-link {
+  background: var(--ey-surface) !important;
+  border-color: var(--ey-border) !important;
+  color: var(--ey-text-muted) !important;
+  border-radius: var(--radius-sm) !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.875rem !important;
+  transition: all var(--transition) !important;
+}
+.pagination .page-link:hover {
+  background: var(--ey-surface-2) !important;
+  color: var(--ey-text) !important;
+}
+.pagination .page-item.active .page-link {
+  background: var(--ey-accent) !important;
+  border-color: var(--ey-accent) !important;
+  color: #fff !important;
+}
+.pagination { justify-content: center; gap: 4px; }
+.page-item { margin: 0 2px; }
+
+/* ─────────────────────────────────────────────────────────
+   13. EMPTY STATE
+───────────────────────────────────────────────────────── */
+.ey-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
+  text-align: center;
+  gap: 1rem;
+}
+.ey-empty-icon { font-size: 3.5rem; color: var(--ey-text-dim); opacity: 0.6; }
+.ey-empty h3 { font-family: var(--font-heading); font-size: 1.6rem; color: var(--ey-text); margin: 0; }
+.ey-empty p  { color: var(--ey-text-muted); max-width: 360px; margin: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   14. SIDEBAR FILTER
+───────────────────────────────────────────────────────── */
+.ey-sidebar {
+  background: var(--ey-surface);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  position: sticky;
+  top: 80px;
+}
+.ey-filter-group { margin-bottom: 1.75rem; }
+.ey-filter-group:last-child { margin-bottom: 0; }
+.ey-filter-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ey-text-muted);
+  margin-bottom: 0.85rem;
+  display: block;
+}
+.ey-filter-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  cursor: pointer;
+  color: var(--ey-text);
+  font-size: 0.875rem;
+  transition: color var(--transition);
+}
+.ey-filter-option:hover { color: var(--ey-accent); }
+.ey-filter-option input[type="checkbox"] { accent-color: var(--ey-accent); }
+
+/* Price range */
+.ey-range { width: 100%; accent-color: var(--ey-accent); cursor: pointer; }
+.ey-range-labels { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--ey-text-muted); margin-top: 0.4rem; }
+
+/* ─────────────────────────────────────────────────────────
+   15. SORT BAR
+───────────────────────────────────────────────────────── */
+.ey-sort-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--ey-border);
+  margin-bottom: 1.5rem;
+}
+.ey-sort-bar .count { font-size: 0.875rem; color: var(--ey-text-muted); }
+.ey-sort-right { display: flex; align-items: center; gap: 0.75rem; }
+
+/* ─────────────────────────────────────────────────────────
+   16. STAT CARD (About page)
+───────────────────────────────────────────────────────── */
+.ey-stat {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--ey-surface);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius);
+  transition: all var(--transition);
+}
+.ey-stat:hover { border-color: var(--ey-accent); transform: translateY(-2px); }
+.ey-stat-num {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--ey-accent);
+  display: block;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.ey-stat-label { font-size: 0.875rem; color: var(--ey-text-muted); font-weight: 500; }
+
+/* ─────────────────────────────────────────────────────────
+   17. ORDER CARD (My Orders)
+───────────────────────────────────────────────────────── */
+.ey-order-card {
+  background: var(--ey-surface);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: border-color var(--transition);
+}
+.ey-order-card:hover { border-color: var(--ey-border-light); }
+.ey-order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1.1rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition);
+}
+.ey-order-header:hover { background: var(--ey-surface-2); }
+.ey-order-header.open { border-bottom-color: var(--ey-border); }
+.ey-order-id    { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--ey-text); }
+.ey-order-date  { font-size: 0.8rem; color: var(--ey-text-muted); margin-top: 2px; }
+.ey-order-meta  { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.ey-order-total { font-weight: 700; font-size: 1rem; color: var(--ey-text); }
+.ey-order-chevron { color: var(--ey-text-dim); transition: transform var(--transition); font-size: 0.9rem; }
+.ey-order-header.open .ey-order-chevron { transform: rotate(180deg); }
+.ey-order-body  { padding: 1.25rem 1.5rem; display: none; }
+.ey-order-body.show { display: block; }
+.ey-order-item  { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--ey-border); }
+.ey-order-item:last-child { border-bottom: none; }
+.ey-order-thumb { width: 60px; height: 60px; border-radius: var(--radius-sm); object-fit: cover; background: var(--ey-surface-2); flex-shrink: 0; }
+.ey-order-item-info { flex: 1; min-width: 0; }
+.ey-order-item-name { font-weight: 600; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ey-order-item-qty  { font-size: 0.8rem; color: var(--ey-text-muted); margin-top: 2px; }
+
+/* Status filter tabs (orders page) */
+.ey-status-tabs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.ey-status-tab {
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.815rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--ey-border);
+  background: var(--ey-surface);
+  color: var(--ey-text-muted);
+  transition: all var(--transition);
+}
+.ey-status-tab:hover { border-color: var(--ey-border-light); color: var(--ey-text); }
+.ey-status-tab.active {
+  background: var(--ey-accent-muted);
+  border-color: rgba(255,87,34,0.4);
+  color: var(--ey-accent);
+}
+
+/* ─────────────────────────────────────────────────────────
+   18. PRODUCT IMAGE GALLERY
+───────────────────────────────────────────────────────── */
+.ey-gallery { display: flex; flex-direction: column; gap: 0.75rem; }
+.ey-gallery-main {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--ey-border);
+  background: var(--ey-surface-2);
+}
+.ey-gallery-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.ey-gallery-main:hover img { transform: scale(1.03); }
+.ey-gallery-thumbs {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.ey-gallery-thumb {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 2px solid var(--ey-border);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color var(--transition);
+  background: var(--ey-surface-2);
+}
+.ey-gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ey-gallery-thumb:hover, .ey-gallery-thumb.active { border-color: var(--ey-accent); }
+
+/* ─────────────────────────────────────────────────────────
+   19. TRUST STRIP (Why Eyantra)
+───────────────────────────────────────────────────────── */
+.ey-trust {
+  background: var(--ey-surface);
+  border-top: 1px solid var(--ey-border);
+  border-bottom: 1px solid var(--ey-border);
+  padding: 2.5rem 0;
+}
+.ey-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+.ey-trust-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius);
+  background: var(--ey-accent-muted);
+  color: var(--ey-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+.ey-trust-title { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--ey-text); margin-bottom: 0.15rem; }
+.ey-trust-desc  { font-size: 0.825rem; color: var(--ey-text-muted); margin: 0; }
+
+/* ─────────────────────────────────────────────────────────
+   20. PRODUCT CARD (overrides existing)
+───────────────────────────────────────────────────────── */
+.ey-product-card {
+  background: var(--ey-surface);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  height: 100%;
+}
+.ey-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+  border-color: var(--ey-border-light);
+}
+.ey-product-card-img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--ey-surface-2);
+  position: relative;
+}
+.ey-product-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+.ey-product-card:hover .ey-product-card-img img { transform: scale(1.05); }
+.ey-product-card-hover-btn {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0.6rem 1rem;
+  background: var(--ey-accent);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateY(100%);
+  transition: transform var(--transition);
+}
+.ey-product-card:hover .ey-product-card-hover-btn { transform: translateY(0); }
+.ey-product-card-body { padding: 1rem; }
+.ey-product-card-cat {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ey-accent);
+  margin-bottom: 0.35rem;
+}
+.ey-product-card-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ey-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  height: 2.5rem;
+  margin-bottom: 0.6rem;
+}
+.ey-product-card-price {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ey-text);
+}
+
+/* ─────────────────────────────────────────────────────────
+   21. JOIN COMMUNITY / CTA BANNER
+───────────────────────────────────────────────────────── */
+.ey-cta-banner {
+  background: linear-gradient(135deg, var(--ey-surface) 0%, var(--ey-surface-2) 100%);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-lg);
+  padding: 3.5rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ey-cta-banner::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,87,34,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────
+   22. SECTION DIVIDERS & SPACING
+───────────────────────────────────────────────────────── */
+.ey-section { padding: 4.5rem 0; }
+.ey-section-sm { padding: 2.5rem 0; }
+
+/* ─────────────────────────────────────────────────────────
+   23. HERO SECTION
+───────────────────────────────────────────────────────── */
+.ey-hero {
+  background: var(--ey-bg);
+  padding: 5rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+}
+.ey-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 60% 40%, rgba(255,87,34,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.ey-hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ey-accent);
+  margin-bottom: 1rem;
+}
+.ey-hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--ey-accent);
+}
+.ey-hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ey-text);
+  margin-bottom: 1.5rem;
+}
+.ey-hero-title .accent { color: var(--ey-accent); }
+.ey-hero-sub { color: var(--ey-text-muted); font-size: 1.05rem; max-width: 520px; margin-bottom: 2rem; }
+.ey-hero-search { max-width: 560px; margin-bottom: 2rem; }
+.ey-hero-cats {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.ey-hero-cat {
+  padding: 0.4rem 0.9rem;
+  background: var(--ey-surface-2);
+  border: 1px solid var(--ey-border);
+  border-radius: var(--radius-sm);
+  color: var(--ey-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.ey-hero-cat:hover {
+  background: var(--ey-accent-muted);
+  border-color: rgba(255,87,34,0.4);
+  color: var(--ey-accent);
+}
+
+/* ─────────────────────────────────────────────────────────
+   24. FOOTER OVERRIDES
+───────────────────────────────────────────────────────── */
+.ey-footer {
+  background: #111111;
+  border-top: 1px solid var(--ey-border);
+  padding: 3.5rem 0 0;
+  margin-top: 5rem;
+}
+.ey-footer h6 {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ey-accent);
+  margin-bottom: 1.1rem;
+}
+.ey-footer p, .ey-footer a { color: var(--ey-text-muted); font-size: 0.875rem; margin-bottom: 0.5rem; }
+.ey-footer a:hover { color: var(--ey-accent); }
+.ey-footer-bottom {
+  border-top: 1px solid var(--ey-border);
+  padding: 1.1rem 0;
+  margin-top: 2.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--ey-text-dim);
+}
+
+/* ─────────────────────────────────────────────────────────
+   25. UTILITY CLASSES
+───────────────────────────────────────────────────────── */
+.ey-divider { border: none; border-top: 1px solid var(--ey-border); margin: 2rem 0; }
+.ey-text-center { text-align: center; }
+.ey-flex-center { display: flex; align-items: center; justify-content: center; }
+.ey-gap-2 { gap: 0.5rem; }
+.ey-gap-3 { gap: 0.75rem; }
+.ey-gap-4 { gap: 1rem; }
+
+/* Override Bootstrap card & table for dark theme */
+.card {
+  background: var(--ey-surface) !important;
+  border-color: var(--ey-border) !important;
+  color: var(--ey-text) !important;
+  border-radius: var(--radius) !important;
+}
+.card:hover { box-shadow: var(--shadow-sm) !important; }
+.table { color: var(--ey-text) !important; border-color: var(--ey-border) !important; }
+.table td, .table th { border-color: var(--ey-border) !important; }
+.table thead th { background: var(--ey-surface-2) !important; color: var(--ey-text-muted) !important; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ─────────────────────────────────────────────────────────
+   26. RESPONSIVE HELPERS
+───────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .ey-section { padding: 3rem 0; }
+  .ey-hero { padding: 3rem 0 2.5rem; }
+  .ey-hero-title { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+  .ey-sidebar { position: static; }
+  .ey-sort-bar { flex-direction: column; align-items: flex-start; }
+  .ey-order-header { flex-direction: column; align-items: flex-start; }
+  .ey-trust-item { flex-direction: column; align-items: center; text-align: center; }
+}

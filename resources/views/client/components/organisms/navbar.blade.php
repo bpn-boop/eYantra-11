@@ -1,60 +1,164 @@
 @prepend('css')
 <link rel="stylesheet" href="{{ asset('client/components/organisms/navbar/style.css') }}">
 @endprepend
-<header class="header" id="header">
-  <nav class="nav container">
-    <div class="nav-button">
-      <div class="nav-toggle" id="nav-toggle">
+
+{{-- Overlay for mobile drawer --}}
+<div class="ey-nav-overlay" id="navOverlay"></div>
+
+{{-- Mobile Drawer --}}
+<div class="ey-nav-drawer" id="navDrawer">
+  <div class="ey-drawer-head">
+    <a href="/" class="ey-nav-logo-text">EY<span>AN</span>TRA</a>
+    <button class="ey-drawer-close" id="navDrawerClose" aria-label="Close menu">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="ey-drawer-search">
+    <form action="{{ route('clientProductSearch') }}" method="GET">
+      <div class="ey-search">
+        <span class="ey-search-icon"><i class="bi bi-search"></i></span>
+        <input type="text" name="product" class="ey-search-input" placeholder="Search parts, brands...">
+      </div>
+    </form>
+  </div>
+  <ul class="ey-drawer-links">
+    <li><a href="{{ route('clientHome') }}" class="{{ request()->routeIs('clientHome') ? 'active' : '' }}">
+      <i class="bi bi-house"></i> Home
+    </a></li>
+    <li><a href="{{ route('clientProducts') }}" class="{{ request()->routeIs('clientProducts') ? 'active' : '' }}">
+      <i class="bi bi-grid-3x3-gap"></i> All Products
+    </a></li>
+    <li><a href="{{ route('clientCategory') }}" class="{{ request()->routeIs('clientCategory') ? 'active' : '' }}">
+      <i class="bi bi-layers"></i> Categories
+    </a></li>
+    <li><a href="{{ route('clientAbout') }}" class="{{ request()->routeIs('clientAbout') ? 'active' : '' }}">
+      <i class="bi bi-info-circle"></i> About
+    </a></li>
+    @auth
+    <li><a href="{{ route('getMyOrders') }}" class="{{ request()->routeIs('getMyOrders') ? 'active' : '' }}">
+      <i class="bi bi-bag-check"></i> My Orders
+    </a></li>
+    @endauth
+  </ul>
+  <div class="ey-drawer-footer">
+    @guest
+      <a href="{{ route('login') }}" class="ey-btn ey-btn-outline ey-btn-full">Login</a>
+      <a href="{{ route('signup') }}" class="ey-btn ey-btn-primary ey-btn-full">Sign Up</a>
+    @else
+      <a href="{{ route('clientCarts') }}" class="ey-btn ey-btn-outline ey-btn-full">
+        <i class="bi bi-bag"></i> Cart <span id="cartCountMobile">({{ session('cartCount', 0) }})</span>
+      </a>
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="ey-btn ey-btn-ghost ey-btn-full" style="color:var(--ey-danger)">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </form>
+    @endguest
+  </div>
+</div>
+
+{{-- Main Navbar --}}
+<header class="ey-nav" id="eynav">
+  <div class="container">
+    <div class="ey-nav-inner">
+
+      {{-- Hamburger (mobile) --}}
+      <button class="ey-nav-toggle" id="navToggle" aria-label="Open menu">
         <i class="bi bi-list"></i>
+      </button>
+
+      {{-- Logo --}}
+      <a href="{{ route('clientHome') }}" class="ey-nav-logo">
+        @if($path)
+          <img src="{{ asset('shop/'.$path) }}" alt="Eyantra" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <span class="ey-nav-logo-text" style="display:none">EY<span>AN</span>TRA</span>
+        @else
+          <span class="ey-nav-logo-text">EY<span>AN</span>TRA</span>
+        @endif
+      </a>
+
+      {{-- Desktop Nav Links --}}
+      <ul class="ey-nav-links">
+        <li><a href="{{ route('clientProducts') }}" class="{{ request()->routeIs('clientProducts') ? 'active' : '' }}">Products</a></li>
+        <li><a href="{{ route('clientCategory') }}" class="{{ request()->routeIs('clientCategory') ? 'active' : '' }}">Categories</a></li>
+        <li><a href="{{ route('clientAbout') }}" class="{{ request()->routeIs('clientAbout') ? 'active' : '' }}">About</a></li>
+      </ul>
+
+      {{-- Search bar (center, desktop) --}}
+      <div class="ey-nav-search">
+        <form action="{{ route('clientProductSearch') }}" method="GET">
+          <div class="ey-search">
+            <span class="ey-search-icon"><i class="bi bi-search"></i></span>
+            <input type="text" name="product" class="ey-search-input" placeholder="Search parts, brands, models..."
+              value="{{ request('product') ?? request('search') }}">
+            <button type="submit" class="ey-search-btn">Go</button>
+          </div>
+        </form>
       </div>
-    </div>
-    <a href="/" class="nav-logo" id="logo">
-      <img src="{{ asset('shop/'.$path) }}" alt="">
-    </a>
-    <div class="nav-menu" id="nav-menu">
-     <x-molecules.navbar.menu />
-      <div class="nav-close" id="nav-close">
-        <i class="bi bi-x"></i>
+
+      {{-- Right actions --}}
+      <div class="ey-nav-actions">
+        @guest
+          <a href="{{ route('login') }}" class="ey-nav-action-btn" title="Login">
+            <i class="bi bi-person"></i>
+          </a>
+        @else
+          <a href="{{ route('getMyOrders') }}" class="ey-nav-action-btn" title="My Orders">
+            <i class="bi bi-bag-check"></i>
+          </a>
+          <a href="#" class="ey-nav-action-btn" title="{{ Auth::user()->name }}" id="userMenuTrigger">
+            <i class="bi bi-person-circle"></i>
+          </a>
+        @endguest
+
+        <a href="{{ route('clientCarts') }}" class="ey-nav-action-btn" title="Cart" id="cartIcon">
+          <i class="bi bi-bag"></i>
+          <span class="ey-nav-badge" id="cartCount" style="{{ session('cartCount', 0) == 0 ? 'display:none' : '' }}">
+            {{ session('cartCount', 0) }}
+          </span>
+        </a>
       </div>
+
     </div>
-    <div class="icon-left">
-      <x-molecules.navbar.search-bar/>
-    </div>
-  </nav>
+  </div>
 </header>
+
 @prepend('js')
-  <script>
-    const navMenu = document.getElementById("nav-menu"),
-    navToggle = document.getElementById("nav-toggle"),
-    navClose = document.getElementById("nav-close"),
-    logo = document.getElementById("logo");
+<script>
+  // Sticky shadow on scroll
+  const nav = document.getElementById('eynav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
 
-    if (navToggle) {
-        navToggle.addEventListener("click", () => {
-            navMenu.classList.add("show-menu");
-        });
-    }
+  // Mobile drawer
+  const overlay   = document.getElementById('navOverlay');
+  const drawer    = document.getElementById('navDrawer');
+  const toggleBtn = document.getElementById('navToggle');
+  const closeBtn  = document.getElementById('navDrawerClose');
 
-    if (navClose) {
-        navClose.addEventListener("click", () => {
-            navMenu.classList.remove("show-menu");
-        });
-    }
+  function openDrawer() {
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
 
-    function Onfocus() {
-        if (window.matchMedia("(min-width:767px)").matches) {
-            navMenu.classList.add("d-none");
-        } else {
-            logo.classList.add("d-none");
-        }
-    }
+  if (toggleBtn) toggleBtn.addEventListener('click', openDrawer);
+  if (closeBtn)  closeBtn.addEventListener('click', closeDrawer);
+  if (overlay)   overlay.addEventListener('click', closeDrawer);
 
-    function Onblur() {
-        if (window.matchMedia("(min-width:767px)").matches) {
-            navMenu.classList.remove("d-none");
-        } else {
-            logo.classList.remove("d-none");
-        }
-    }
-  </script>
+  // Keep cart count badge in sync
+  function updateCartBadge(count) {
+    const badge  = document.getElementById('cartCount');
+    if (!badge) return;
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
+  }
+</script>
 @endprepend

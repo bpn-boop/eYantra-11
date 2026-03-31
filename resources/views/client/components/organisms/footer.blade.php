@@ -1,61 +1,50 @@
-<div class="sub-footer py-5 mt-5">
+<footer class="ey-footer">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-4 col-12">
-          <div class="short-about text-lg-start text-md-start text-center">
-            <img src="{{ asset('shop/'.$shop->path) }}" alt="" width="80px">
-            <h1 class="mt-3">{{$shop->name_shop}}</h1>
-            <p>{{$shop->desc}}</p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 col-6 ">
-          <h6>Company</h6>
-          <a href="/about" class="text-decoration-none"><p>About Us</p></a>
-          <a href="/products" class="text-decoration-none"><p>Product</p></a>
-          <a href="/about#address" class="text-decoration-none text-dark"><p>Address</p></a>
-        </div>
-        <div class="col-lg-3 col-md-3 col-6 ">
-          <h6>Support</h6>
-          <a href="/about#faq" class="text-decoration-none text-dark"><p>FAQ</p></a>
-          <a href="/about#shippingandreturns" class="text-decoration-none text-dark"><p>Shipping & Returns</p></a>
-          <a href="/about#warranty" class="text-decoration-none text-dark"><p>Warranty</p></a>
-        </div>
-        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column">
-          <h6>Contact Us</h6>
-          <p class="d-flex align-items-center"><img src="{{ asset('client/img/icon-phone.png') }}" alt="" class="img-fluid me-2">{{$shop->phone}}</p>
-          <p class="d-flex align-items-center"><img src="{{ asset('client/img/icon-email.png') }}" alt="" class="img-fluid me-2">hello{!! '@'.str_replace(' ', '', strtolower($shop->name_shop)) !!}.com</p>
-          <div class="d-lg-block d-md-block d-none">
-            <div class="row">
-              <div class="col-3">
-                <img src="{{ asset('client/img/icon-instagram.png') }}" alt="" class="img-fluid">
-              </div>
-              <div class="col-3">
-                <img src="{{ asset('client/img/icon-tokopedia.png') }}" alt="" class="img-fluid">
-              </div>
-              <div class="col-3">
-                <img src="{{ asset('client/img/icon-facebook.png') }}" alt="" class="img-fluid">
-              </div>
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6">
+                <a href="/" class="ey-nav-logo-text mb-3 d-inline-block" style="font-size: 2rem;">EY<span>AN</span>TRA</a>
+                <p class="mb-4 pe-md-4">{{ $shop->desc ?? 'The trusted local bike shop, digitized. Supplying genuine parts for riders and mechanics everywhere.' }}</p>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="#" class="ey-btn-ghost" style="padding:0; font-size: 1.25rem;"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="ey-btn-ghost" style="padding:0; font-size: 1.25rem;"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="ey-btn-ghost" style="padding:0; font-size: 1.25rem;"><i class="bi bi-twitter"></i></a>
+                </div>
             </div>
-          </div>
+            
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6>Company</h6>
+                <a href="{{ route('clientAbout') }}" class="d-block">About Us</a>
+                <a href="{{ route('clientProducts') }}" class="d-block">All Products</a>
+                <a href="{{ route('clientCategory') }}" class="d-block">Categories</a>
+            </div>
+            
+            <div class="col-lg-2 col-md-3 col-6">
+                <h6>Support</h6>
+                <a href="#" class="d-block">Contact Us</a>
+                <a href="#" class="d-block">FAQ</a>
+                <a href="#" class="d-block">Shipping Info</a>
+                <a href="#" class="d-block">Returns Policy</a>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <h6>Contact Detail</h6>
+                <div class="d-flex align-items-start gap-3 mb-3">
+                    <i class="bi bi-geo-alt mt-1 text-muted"></i>
+                    <p class="mb-0">Kathmandu, Nepal<br>10400 Ring Road</p>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="bi bi-envelope text-muted"></i>
+                    <p class="mb-0">hello@eyantra.com</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <i class="bi bi-telephone text-muted"></i>
+                    <p class="mb-0">{{ $shop->phone ?? '+977 980 0000000' }}</p>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3 col-md-3 col-6 d-lg-none d-md-none d-block">
-          <h6>Social Media</h6>
-          <div class="row">
-            <div class="col-3">
-              <img src="{{ asset('client/img/icon-instagram.png') }}" alt="" class="img-fluid">
-            </div>
-            <div class="col-3">
-              <img src="{{ asset('client/img/icon-tokopedia.png') }}" alt="" class="img-fluid">
-            </div>
-            <div class="col-3">
-              <img src="{{ asset('client/img/icon-facebook.png') }}" alt="" class="img-fluid">
-            </div>
-          </div>
+        
+        <div class="ey-footer-bottom">
+            <p class="mb-0">&copy; {{ now()->year }} {{ $shop->name_shop ?? 'Eyantra' }}. All rights reserved.</p>
         </div>
-      </div>
     </div>
-  </div>
-
-  <footer>
-    <p>	&#169; {{ now()->year }} {{ $shop->name_shop }}. All rights reserved.</p>
-  </footer>
+</footer>
