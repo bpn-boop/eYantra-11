@@ -14,6 +14,17 @@
     </x-slot:productCTA>
   </x-organisms.products>
 
+  {{-- Recommendations section --}}
+  @if(isset($recommendedProducts) && count($recommendedProducts) > 0)
+  <div style="background: var(--ey-surface-2); border-top: 1px solid var(--ey-border); padding-bottom: 2rem;">
+    <x-organisms.products :dataProduct="$recommendedProducts">
+      <div class="ey-section-header">
+        <h2 style="font-size: 2rem;">Products You May <span style="color:var(--ey-accent);">Like</span></h2>
+      </div>
+    </x-organisms.products>
+  </div>
+  @endif
+
   {{-- Categories section --}}
   <div class="ey-section" style="background: var(--ey-surface); border-top: 1px solid var(--ey-border);">
       <div class="container">

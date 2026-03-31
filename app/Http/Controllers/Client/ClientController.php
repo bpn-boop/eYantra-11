@@ -14,6 +14,8 @@ use Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderPlacedMail;
 use DB;
+use App\Models\ProductView;
+use App\Services\RecommendationService;
 
 class ClientController extends Controller
 {
@@ -23,9 +25,12 @@ class ClientController extends Controller
             return redirect()->route('register');
         }
 
+        $recommendationService = new RecommendationService();
+        
         $data = [
             'shop' => Shop::first(),
             'product' => Product::all()->sortByDesc('id')->take(8),
+            'recommendedProducts' => $recommendationService->getRecommendations(4),
             'category' => Category::all()->sortByDesc('id')->take(4),
             'title' => 'Home'
         ];
@@ -90,6 +95,15 @@ class ClientController extends Controller
     public function productDetail($product){
 
         $product = Product::where('title', $product)->first();
+
+        // Record the view for recommendation engine
+        if ($product) {
+            ProductView::create([
+                'product_id' => $product->id,
+                'user_id' => auth()->id(),
+                'session_id' => session()->getId(),
+            ]);
+        }
 
         if($product->category->product->count() > 1){
             $recomendationProducts = $product->category->product->take(8);
