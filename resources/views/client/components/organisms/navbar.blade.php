@@ -107,9 +107,32 @@
           <a href="{{ route('getMyOrders') }}" class="ey-nav-action-btn" title="My Orders">
             <i class="bi bi-bag-check"></i>
           </a>
-          <a href="#" class="ey-nav-action-btn" title="{{ Auth::user()->name }}" id="userMenuTrigger">
-            <i class="bi bi-person-circle"></i>
-          </a>
+          <div class="ey-user-menu-wrapper">
+            <a href="#" class="ey-nav-action-btn" title="{{ Auth::user()->name }}" id="userMenuTrigger">
+              <i class="bi bi-person-circle"></i>
+            </a>
+            {{-- Desktop user dropdown --}}
+            <div class="ey-user-dropdown" id="userDropdown">
+              <div class="ey-user-dropdown-header">
+                <i class="bi bi-person-circle ey-user-avatar-icon"></i>
+                <div>
+                  <div class="ey-user-dropdown-name">{{ Auth::user()->name }}</div>
+                  <div class="ey-user-dropdown-email">{{ Auth::user()->email }}</div>
+                </div>
+              </div>
+              <div class="ey-user-dropdown-divider"></div>
+              <a href="{{ route('getMyOrders') }}" class="ey-user-dropdown-item">
+                <i class="bi bi-bag-check"></i> My Orders
+              </a>
+              <div class="ey-user-dropdown-divider"></div>
+              <form action="{{ route('logout') }}" method="POST" class="ey-user-dropdown-logout">
+                @csrf
+                <button type="submit" class="ey-user-dropdown-item ey-user-logout-btn">
+                  <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+              </form>
+            </div>
+          </div>
         @endguest
 
         <a href="{{ route('clientCarts') }}" class="ey-nav-action-btn" title="Cart" id="cartIcon">
@@ -159,6 +182,32 @@
     if (!badge) return;
     badge.textContent = count;
     badge.style.display = count > 0 ? 'flex' : 'none';
+  }
+
+  // Desktop user dropdown toggle
+  const userMenuTrigger = document.getElementById('userMenuTrigger');
+  const userDropdown    = document.getElementById('userDropdown');
+
+  if (userMenuTrigger && userDropdown) {
+    userMenuTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      userDropdown.classList.toggle('open');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!userDropdown.contains(e.target) && !userMenuTrigger.contains(e.target)) {
+        userDropdown.classList.remove('open');
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        userDropdown.classList.remove('open');
+      }
+    });
   }
 </script>
 @endprepend
